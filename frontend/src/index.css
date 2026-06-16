@@ -2,29 +2,110 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", sans-serif;
 }
 
 body {
-  background: #f4f6f9;
+  overflow-x: hidden;
 }
 
-.container {
+.app {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+  background: #e7f8ea;
+  transition: all 0.4s ease;
+}
+
+.app.dark-mode {
+  background: #123524;
+}
+
+/* Theme Button */
+
+.theme-btn {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  transition: 0.3s;
+  z-index: 99999;
+}
+
+.theme-btn:hover {
+  transform: scale(1.08);
+}
+
+/* Main Layout */
+
+.split-container {
+  flex: 1;
+  display: flex;
+  position: relative;
+  z-index: 2;
+}
+
+/* Left Panel */
+
+.left-panel {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px;
+}
+
+.logo {
+  font-size: 90px;
+  margin-bottom: 20px;
+}
+
+.brand-name {
+  font-size: 65px;
+  font-weight: 800;
+  color: #1b5e20;
+  margin-bottom: 20px;
+}
+
+.brand-description {
+  font-size: 18px;
+  line-height: 1.9;
+  max-width: 650px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Right Panel */
+
+.right-panel {
+  width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+/* Login Card */
+
 .login-card {
-  width: 400px;
-  background: white;
-  padding: 35px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 430px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(15px);
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+  transition: 0.4s;
 }
 
-.login-card h1 {
+.login-card h2 {
   text-align: center;
   margin-bottom: 10px;
 }
@@ -41,39 +122,153 @@ body {
 
 .input-group label {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   font-weight: 600;
 }
 
 .input-group input,
 .input-group select {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  padding: 13px;
+  border: 1px solid #dcdcdc;
+  border-radius: 12px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  border-color: #2e7d32;
+  box-shadow: 0 0 10px rgba(46, 125, 50, 0.2);
 }
 
 .login-btn {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   border: none;
-  background: #2563eb;
+  border-radius: 12px;
+  background: #2e7d32;
   color: white;
   font-size: 16px;
-  border-radius: 8px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .login-btn:hover {
-  opacity: 0.9;
+  transform: translateY(-2px);
+  opacity: 0.95;
 }
 
 .register-text {
+  margin-top: 18px;
   text-align: center;
-  margin-top: 15px;
 }
 
 .register-text a {
+  color: #2e7d32;
   text-decoration: none;
-  color: #2563eb;
+  font-weight: 600;
+}
+
+/* Footer */
+
+footer {
+  text-align: center;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 2;
+}
+
+footer span {
+  font-weight: bold;
+}
+
+/* Dark Mode */
+
+.app.dark-mode .brand-name,
+.app.dark-mode .brand-description,
+.app.dark-mode footer,
+.app.dark-mode .register-text,
+.app.dark-mode .input-group label {
+  color: white;
+}
+
+.app.dark-mode .subtitle {
+  color: #d0d0d0;
+}
+
+.app.dark-mode .login-card {
+  background: rgba(29, 46, 36, 0.95);
+  color: white;
+}
+
+.app.dark-mode input,
+.app.dark-mode select {
+  background: #2d4134;
+  color: white;
+  border: 1px solid #3f5c49;
+}
+
+.app.dark-mode .theme-btn {
+  background: #1d2e24;
+  color: white;
+}
+
+.app.dark-mode .login-btn {
+  background: #4caf50;
+}
+
+.app.dark-mode .register-text a {
+  color: #7cff8c;
+}
+
+.app.dark-mode footer {
+  background: rgba(29, 46, 36, 0.7);
+}
+
+.app.dark-mode .background-animation span {
+  opacity: 0.12;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+  .split-container {
+    flex-direction: column;
+  }
+
+  .left-panel,
+  .right-panel {
+    width: 100%;
+    padding: 40px;
+  }
+
+  .brand-name {
+    font-size: 45px;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 450px;
+  }
+}
+
+.show-password {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.show-password input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.show-password label {
+  cursor: pointer;
 }
